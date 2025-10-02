@@ -31,7 +31,7 @@ void kmain(){
 
     paging_setup();
 
-    *(uint8_t*)0xc000000 = 1;
+    *(uint8_t*)0xc000000 = 1;   // Page fault handler test
 
     while(1);
 }
