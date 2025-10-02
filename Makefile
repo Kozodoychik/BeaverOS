@@ -6,7 +6,7 @@ OUTPUT=out/kernel.bin
 OBJ=obj
 
 CC=i686-linux-gnu-gcc
-CFLAGS=-nostdlib -O2 -Wall -Wextra -lgcc -ffreestanding -Iincl -DBUILD_DATE='"$(BUILD_DATE)"'
+CFLAGS=-nostdlib -O2 -Wall -Wextra -lgcc -ffreestanding -Iincl -DBUILD_DATE='"$(BUILD_DATE)"' -g
 
 AS=nasm
 ASFLAGS=-f elf
@@ -37,13 +37,13 @@ clean:
 	rm -rf iso
 
 run:
-	qemu-system-x86_64 -kernel $(OUTPUT) -d int -no-reboot -nic model=pcnet
+	qemu-system-i386 -kernel $(OUTPUT) -d int -no-reboot -nic model=pcnet
 
 run-iso:
-	qemu-system-x86_64 -cdrom out/os.iso -d int -no-reboot -nic model=pcnet
+	qemu-system-i386 -cdrom out/os.iso -d int -no-reboot -nic model=pcnet
 
 run-gdb:
-	qemu-system-x86_64 -kernel $(OUTPUT) -d int -s -S -nic model=pcnet
+	qemu-system-i386 -kernel $(OUTPUT) -d int -s -S -nic model=pcnet
 
 iso:
 	mkdir iso

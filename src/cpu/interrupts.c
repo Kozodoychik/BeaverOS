@@ -8,6 +8,7 @@ extern void idt_load(uint16_t size);
 extern void isr0x00();
 extern void isr0x06();
 extern void isr0x0d();
+extern void isr0x0e();
 
 extern void isr0x20();
 extern void isr0x21();
@@ -32,7 +33,8 @@ void (*irq_handlers[16])(void);
 char* fault_msgs[] = {
     [0x00] = "Division Error",
     [0x06] = "Invalid Opcode",
-    [0x0d] = "General Protection Fault"
+    [0x0d] = "General Protection Fault",
+    [0x0e] = "Page Fault"
 };
 
 void irq_handler(uint16_t irq) {
@@ -118,6 +120,7 @@ void interrupts_init() {
     interrupt_set_handler(0x00, INTERRUPT_TRAP_GATE, isr0x00);
     interrupt_set_handler(0x06, INTERRUPT_TRAP_GATE, isr0x06);
     interrupt_set_handler(0x0d, INTERRUPT_TRAP_GATE, isr0x0d);
+    interrupt_set_handler(0x0e, INTERRUPT_TRAP_GATE, isr0x0e);
 
     // IRQ
 
